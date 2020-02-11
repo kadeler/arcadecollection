@@ -24,13 +24,19 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Component\Collider.py">
+    <Compile Include="Components\Collider.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Component\Trigger.py">
+    <Compile Include="Components\Component.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\Trigger.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ObjectsMng\Axes.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectsMng\Object.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Windows\Window.py">
@@ -52,7 +58,7 @@
     <Compile Include="Interface\GUI.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ObjectsMng\Object.py">
+    <Compile Include="ObjectsMng\OldObject.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Games\GSnake\Snake.py">
@@ -72,7 +78,7 @@
     <Folder Include="Inputs\" />
     <Folder Include="Windows\" />
     <Folder Include="Interface\" />
-    <Folder Include="Component\" />
+    <Folder Include="Components\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
