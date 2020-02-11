@@ -1,2 +1,0 @@
-# arcadecollection
-danya lox
