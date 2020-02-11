@@ -1,76 +1,42 @@
-from ObjectsMng.Object import *
-#Этот файл создан для дополнительной обработки значений x и y!
-#Вот так вот!
 #
-
-#Параметры объекта
-class GeneralField(Object):
-
-    main_axis = False
-
-    size = 0 #Размер
+#Геометрия осей объекта
+class Geometry:
+    #
     position = 0 #Позиция
-    vector = 0 #Вектор
+    vector = 0 #Направление
+    size = 0 #Размер
 
+#
+#Классы осей
+class xAxis(Geometry):
+    pass
 
+class yAxis(Geometry):
+    pass
 
-#По x:
-class _X(GeneralField):
+#
+#Выбранная нами ось
+class SelectedAxis(Geometry):
+    pass
+####
+#
+#
+#Действия с осями координат
+class Axes:
+    #Оси координат
+    x_axis = xAxis()
+    y_axis = yAxis()
 
-    def begin(self, obj):
-        if obj != None:
-            self.size = obj.size.x
-            self.position = obj.position.x
-            self.vector = obj.vector.x
+    #Выбранная ось
+    sel_ax = SelectedAxis()
 
-        return (self.position, self.vector, self.main_axis)
-
-    def end(self, obj):
-        if obj != None:
-            obj.size.x = self.size
-            obj.position.x = self.position
-            obj.vector.x = self.vector
-        
-
-    def __init__(self, obj):
-        self.begin(obj)
-
-#По y:
-class _Y(GeneralField):    
-
-    def begin(self, obj):
-        if obj != None:
-            self.size = obj.size.y
-            self.position = obj.position.y
-            self.vector = obj.vector.y
-        
-        return (self.position, self.vector, self.main_axis)
-
-    def end(self, obj):
-        if obj != None:
-            obj.size.y = self.size
-            obj.position.y = self.position
-            obj.vector.y = self.vector
-
-    def __init__(self, obj):
-        self.begin(obj)
-
-
-class Ax:
-    x = None
-    y = None
-
-    def inside(self, obj):
-        return (self.x.begin(obj),
-                self.y.begin(obj))
-
-    def outside(self, obj):
-        return (self.x.end(obj),
-                self.y.end(obj))
-
-    def __init__(self, obj = Object()):
-
-        #Оси:
-        self.x = _X(obj)
-        self.y = _Y(obj)
-
+    #Выбор оси
+    def SelectAxis(self, ax):
+        if ax == 'x': #Выбираем ось X
+            self.sel_ax = self.x_axis
+            return self.sel_ax
+        #
+        #
+        if ax == 'y': #Выбираем ось Y
+            self.sel_ax = self.y_axis
+            return self.sel_ax

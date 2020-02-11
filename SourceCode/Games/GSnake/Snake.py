@@ -1,5 +1,5 @@
 from ObjectsMng.Axes import *
-from Component.Collider import *
+from Components.Collider import *
 from Inputs.SnakeCntrl import *
 from Windows.Window import *
 
@@ -89,8 +89,7 @@ class Snake(Object):
 
         if not self.spawn:
             #Устанавливаем шаг змеи
-            xV = self.radius
-            yV = self.radius
+            self.radius = xV * yV // 2
 
             #Устанавливаем координаты змеи
             self.position.x = x
@@ -152,4 +151,4 @@ class Snake(Object):
             self.draw_head(axis)
 
             #Фиксируем положение коллайдера головы змеи за самой головой
-            self.coll.fix_field()
+            self.coll.fix_field(self)
