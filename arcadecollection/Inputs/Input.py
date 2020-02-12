@@ -1,7 +1,7 @@
 from pygame import *
 
 class Input:
-
+    init()
 #Методы для определения настроек управления
     #Массив нажатий на клавиатуру
     def keys(self, i):

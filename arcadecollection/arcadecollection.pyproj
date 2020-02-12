@@ -11,6 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>arcadecollection</Name>
     <RootNamespace>arcadecollection</RootNamespace>
+    <InterpreterId>Global|PythonCore|3.8</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +24,13 @@
   <ItemGroup>
     <Compile Include="arcadecollection.py" />
     <Compile Include="Components\Collider.py" />
+    <Compile Include="Components\Color.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Components\Component.py" />
+    <Compile Include="Components\Paintbrush.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Components\Trigger.py" />
     <Compile Include="Games\GSnake\Snake.py" />
     <Compile Include="Games\GSnake\SnakeManager.py" />
@@ -31,28 +38,21 @@
     <Compile Include="Inputs\SnakeCntrl.py" />
     <Compile Include="Interface\Button.py" />
     <Compile Include="Interface\GUI.py" />
-    <Compile Include="ObjectsMng\Axes.py" />
-    <Compile Include="ObjectsMng\ObjectTypeA.py" />
-    <Compile Include="ObjectsMng\ObjectTypeB.py" />
+    <Compile Include="ObjectsMng\Object.py" />
     <Compile Include="Windows\MainMenu.py" />
     <Compile Include="Windows\Window.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
-    <Folder Include="Components\__pycache__\" />
     <Folder Include="Games\" />
     <Folder Include="Games\GSnake\" />
     <Folder Include="Inputs\" />
     <Folder Include="Interface\" />
     <Folder Include="ObjectsMng\" />
-    <Folder Include="ObjectsMng\__pycache__\" />
     <Folder Include="Windows\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Components\__pycache__\Collider.cpython-38.pyc" />
-    <Content Include="Components\__pycache__\Component.cpython-38.pyc" />
-    <Content Include="ObjectsMng\__pycache__\Axes.cpython-38.pyc" />
-    <Content Include="ObjectsMng\__pycache__\ObjectTypeB.cpython-38.pyc" />
+    <InterpreterReference Include="Global|PythonCore|3.8" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
