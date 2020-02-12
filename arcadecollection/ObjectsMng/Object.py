@@ -25,9 +25,14 @@ class Object:
     #Поле для работы с геометрией объекта
     geom = Geometry()
 
-    #"Кисть" для изменения формы объекта
-    set = Paintbrush(geom)
+
+    def set_paintbrush(self):
+        #"Кисть" для изменения формы объекта
+        self.paint = Paintbrush(self.geom)
     
+    def __init__(self):
+        self.set_paintbrush()
+
     #Тэг объекта
     tag = 'Object'
 

@@ -19,7 +19,7 @@ class Paintbrush:
     #Создаем квадрат
     def square(self, surface):
         draw.rect(surface, self.color,
-                  (self.geom.position.x, self.geom.position.y,
-                   self.geom.size.x, self.geom.size.y))
+                  (self.Geom_.position.x, self.Geom_.position.y,
+                   self.Geom_.size.x, self.Geom_.size.y))
 
 
