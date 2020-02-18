@@ -23,15 +23,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="arcadecollection.py" />
-    <Compile Include="Components\Collider.py" />
+    <Compile Include="Components\CCollider.py" />
     <Compile Include="Components\Color.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Components\Component.py" />
-    <Compile Include="Components\Paintbrush.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\Trigger.py" />
     <Compile Include="Games\GSnake\Snake.py" />
     <Compile Include="Games\GSnake\SnakeManager.py" />
     <Compile Include="Inputs\Input.py" />
@@ -39,6 +35,18 @@
     <Compile Include="Interface\Button.py" />
     <Compile Include="Interface\GUI.py" />
     <Compile Include="ObjectsMng\Object.py" />
+    <Compile Include="ObjectsMng\OCircle.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectsMng\OInformation.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectsMng\OSquare.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectsMng\Vector.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Windows\MainMenu.py" />
     <Compile Include="Windows\Window.py" />
   </ItemGroup>

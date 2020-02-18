@@ -1,23 +1,23 @@
-from Components.Collider import *
+from ObjectsMng.OCircle import *
 from Inputs.SnakeCntrl import *
 from Windows.Window import *
-
+#
 from copy import *
 
 
-class Tail(Object): 
-
-    def __init__(self, geom):
-        self.geom = geom
-
-        self.set_paintbrush()
+class Tail(OCircle): 
 
     #
-    def set_tail(self, surface, radius):        
-        self.paint.circle(surface, radius)
+    def set_geom(self, geom):
+        self.geom = geom
+        
+    #
+    def set_tail(self, surface, radius):
+        self.Create(surface, radius)
+        
 
 
-class Snake(Object):
+class Snake(OCircle):
     #Массив частей хвоста
     arr_tail = []
 
@@ -28,37 +28,55 @@ class Snake(Object):
     defualt_Tquantity = 4
 
     #Количество очков
-    score = 0
+    score = 3
 
 
+    #Диспетчер змеи
     def set_snake(self, surface, position):
         #Определяем экран
         self.surface = surface        
 
         #Стартуем в позиции:
         self.start_atPoint(position)
-        self.paint.circle(surface, self.radius)
+        self.Create(surface, self.radius)
 
         #Запускаем движение
         self.move()
 
-
+    #Цикл, ведущий хвост за головой змеи
     def tail(self):
-        if self.start:
+        if self.start: #Начинаем создавать хвост при условном "старте" игры
+            #Двигаем хвост, если длина его массива соответствует необходимой длине хвоста
             if len(self.arr_tail) == self.length_snake:
 
+                #
                 for i in range(self.length_snake):
+                    #Передвигаем все части хвоста, кроме той, 
+                    #что ближе всего к голове 
                     if i != self.length_snake - 1:
-                        self.arr_tail[i].geom.position = deepcopy(self.arr_tail[i + 1].geom.position)
+                        self.arr_tail[i].collision = True
+                        self.arr_tail[i].geom = deepcopy(self.arr_tail[i + 1].geom)
                         self.arr_tail[i].set_tail(self.surface, self.radiusTail)
-                    else:
+
+                    else: #Присваиваем последней части хвоста координаты головы
+                        self.arr_tail[len(self.arr_tail) - 1].collision = False
                         self.arr_tail[len(self.arr_tail) - 1].geom = deepcopy(self.geom)
+                        
+                        
+            else: #Иначе заполняем массив до необходимой длины
 
-            else:
-                for i in self.arr_tail:
-                    i.set_tail(self.surface, self.radiusTail)
+                #Двигаем части хвоста, которые уже есть в масссиве
+                for i in range(len(self.arr_tail)):
+                    if i != len(self.arr_tail):
+                        self.arr_tail[i].collision = True
 
-                self.arr_tail.append(Tail(deepcopy(self.geom)))
+                    self.arr_tail[i].set_tail(self.surface, self.radiusTail)
+
+                #
+                #Каждый display.update добавляем еще одну часть массива
+                #Пока его велечина не станет соответствовать длине хвоста
+                self.arr_tail.append(Tail())
+                self.arr_tail[len(self.arr_tail) - 1].set_geom(deepcopy(self.geom))
 
 
     #Координаты спавна змеи на старте игры
@@ -101,7 +119,10 @@ class Snake(Object):
             
             #Начинаем массив хвоста с головы
             if len(self.arr_tail) == 0:
-                self.arr_tail.append(Tail(deepcopy(self.geom)))
+                self.arr_tail.append(Tail())
+                #
+                self.arr_tail[0].set_geom(deepcopy(self.geom))
+                self.arr_tail[0].collision = False
             #
             #Сообщаем о старте игры
             if self.geom.direction.x != 0 or self.geom.direction.y != 0:
@@ -111,6 +132,6 @@ class Snake(Object):
             if self.start:
                 self.length_snake = self.score + self.defualt_Tquantity + 1
 
-            #Двигаем змею
+
             self.move_object()
             self.tail()

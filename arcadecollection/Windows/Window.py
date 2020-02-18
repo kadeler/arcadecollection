@@ -1,5 +1,5 @@
-from ObjectsMng.Object import *
 
+#
 from pygame import *
 
 class Window:
