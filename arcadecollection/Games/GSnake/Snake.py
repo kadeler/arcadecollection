@@ -8,12 +8,13 @@ from copy import *
 class Tail(OCircle): 
 
     #
-    def set_geom(self, geom):
-        self.geom = geom
+    def set_geom(self, geom, radius):
+        self.geom = geom #
+        self.geom.radius = radius
         
     #
-    def set_tail(self, surface, radius):
-        self.Create(surface, radius)
+    def set_tail(self, surface):
+        self.Create(surface)
         
 
 
@@ -34,11 +35,11 @@ class Snake(OCircle):
     #Диспетчер змеи
     def set_snake(self, surface, position):
         #Определяем экран
-        self.surface = surface        
+        self.surface = surface    
 
         #Стартуем в позиции:
         self.start_atPoint(position)
-        self.Create(surface, self.radius)
+        self.Create(surface)
 
         #Запускаем движение
         self.move()
@@ -56,11 +57,13 @@ class Snake(OCircle):
                     if i != self.length_snake - 1:
                         self.arr_tail[i].collision = True
                         self.arr_tail[i].geom = deepcopy(self.arr_tail[i + 1].geom)
-                        self.arr_tail[i].set_tail(self.surface, self.radiusTail)
+                        self.arr_tail[i].set_tail(self.surface)
 
                     else: #Присваиваем последней части хвоста координаты головы
                         self.arr_tail[len(self.arr_tail) - 1].collision = False
                         self.arr_tail[len(self.arr_tail) - 1].geom = deepcopy(self.geom)
+
+                    self.arr_tail[i].geom.radius = self.radiusTail
                         
                         
             else: #Иначе заполняем массив до необходимой длины
@@ -70,13 +73,13 @@ class Snake(OCircle):
                     if i != len(self.arr_tail):
                         self.arr_tail[i].collision = True
 
-                    self.arr_tail[i].set_tail(self.surface, self.radiusTail)
+                    self.arr_tail[i].set_tail(self.surface)
 
                 #
                 #Каждый display.update добавляем еще одну часть массива
                 #Пока его велечина не станет соответствовать длине хвоста
                 self.arr_tail.append(Tail())
-                self.arr_tail[len(self.arr_tail) - 1].set_geom(deepcopy(self.geom))
+                self.arr_tail[len(self.arr_tail) - 1].set_geom(deepcopy(self.geom), self.radiusTail)
 
 
     #Координаты спавна змеи на старте игры
@@ -84,15 +87,14 @@ class Snake(OCircle):
 
         if not self.spawn:
             #Устанавливаем радиус головы и хвоста змеи
-            self.radius = (position.x + position.y) // 36
-            self.radiusTail = int(self.radius / 1.5)
+            self.geom.radius = (position.x + position.y) // 36
+            self.radiusTail = int(self.geom.radius / 1.5)
 
             #Устанавливаем шаг змеи
-            self.step = Vector(self.radius, self.radius)
+            self.step = Vector(self.geom.radius, self.geom.radius)
 
             #Устанавливаем координаты змеи
             self.geom.position = position
-            
             
             #Сообщаем о появлении змеи на карте
             self.spawn = True 
@@ -121,8 +123,8 @@ class Snake(OCircle):
             if len(self.arr_tail) == 0:
                 self.arr_tail.append(Tail())
                 #
-                self.arr_tail[0].set_geom(deepcopy(self.geom))
-                self.arr_tail[0].collision = False
+                self.arr_tail[0].set_geom(deepcopy(self.geom), self.radiusTail)
+                self.arr_tail[0].coll.collision = False
             #
             #Сообщаем о старте игры
             if self.geom.direction.x != 0 or self.geom.direction.y != 0:

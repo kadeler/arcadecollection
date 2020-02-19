@@ -13,5 +13,3 @@ class Vector:
     #Возможность сложения векторов
     def __add__(self, vec):
         return Vector(self.x + vec.x, self.y + vec.y)
-
-

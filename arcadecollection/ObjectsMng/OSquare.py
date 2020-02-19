@@ -14,13 +14,12 @@ class OSquare(Object):
         #Цвет объекта
         self.color = Red
 
-        #
+        #Множества точек внутри объекта
         self.point = set()
-        #self.PointFind()
 
         #Коллайдер объекта
         self.coll = CCollider(self)
-        self.tag = 'square'
+
         #
         #
         #
@@ -32,8 +31,20 @@ class OSquare(Object):
         for x in range(self.geom.position.x, self.geom.position.x + self.geom.size.x):
             for y in range(self.geom.position.y, self.geom.position.y + self.geom.size.y):
                 self.point.add((x, y))
+         
+                
+    #Двигаем объект в направлении:
+    def move_object(self):
+
+        #
+        self.PointFind()
+
+        #
+        if not self.coll.Collision():
+            self.geom.position += self.geom.direction
 
 
+    #
     #Создаем квадрат
     def Create(self, surface):
         draw.rect(surface, self.color,

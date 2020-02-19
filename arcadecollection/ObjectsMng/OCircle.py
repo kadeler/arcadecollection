@@ -11,18 +11,17 @@ class OCircle(Object):
     #Конструктор!
     def __init__(self):
         #Поле для работы с геометрией объекта
-        self.geom = Geometry()
+        self.geom = Geometry() 
 
         #Цвет объекта
         self.color = Red
 
-        #
+        #Множества точек внутри объекта
         self.point = set()
-        #self.PointFind()
 
         #Коллайдер объекта
         self.coll = CCollider(self)
-        self.tag = 'circle'
+
         #
         #
         #
@@ -47,7 +46,12 @@ class OCircle(Object):
 
 
     #Создаем круг
-    def Create(self, surface, radius):
-        draw.circle(surface, self.color, (self.geom.position.x, self.geom.position.y), radius)
+    def Create(self, surface):
+        draw.circle(surface, self.color, (self.geom.position.x, self.geom.position.y), self.geom.radius)
 
 
+    #Двигаем объект в направлении:
+    def move_object(self):
+        self.PointFind()
+        if not self.coll.Collision():
+            self.geom.position += self.geom.direction
