@@ -28,10 +28,12 @@ class OCircle(Object):
         self.toArray()
         #
 
-
-
     #Ищем все точки данного объекта в World
     def PointFind(self):
+        #Обновляем множество точек объекта
+        if self.point != set():
+            self.point.clear()
+
         #Начинаем считать точки по тому же принцепу, что и в квадрате: с верхней левой точки
         begin_point = self.geom.position + Vector(-self.geom.radius, -self.geom.radius)
         centre = self.geom.position #Центр окружности
@@ -48,10 +50,3 @@ class OCircle(Object):
     #Создаем круг
     def Create(self, surface):
         draw.circle(surface, self.color, (self.geom.position.x, self.geom.position.y), self.geom.radius)
-
-
-    #Двигаем объект в направлении:
-    def move_object(self):
-        self.PointFind()
-        if not self.coll.Collision():
-            self.geom.position += self.geom.direction

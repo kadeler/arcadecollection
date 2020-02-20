@@ -9,17 +9,19 @@ class CCollider:
         self.collision = False
         self.trigger = False
 
-        #Объект внутри данного объекта
-        self.insider = None
-
         #Текущий объект
         self.object = obj
 
 
     #Проверка на вхождение в объект
     def Inside(self):
+        self.object.PointFind()
+
         for obj in OArray:
             if not(obj is self.object):
+
+                obj.PointFind()
+
                 if self.object.point.intersection(obj.point) != set():
                     return obj
             #
@@ -33,7 +35,7 @@ class CCollider:
 
         if self.coll_obj != None:
             if self.collision and self.coll_obj.coll.collision:
-                if self.object.coll.collision and self.insider.coll.collision:
+                if self.object.coll.collision and self.coll_obj.coll.collision:
                     return True
                 #
                 #
@@ -46,7 +48,7 @@ class CCollider:
 
         if self.trig_obj != None:
             if self.trigger and self.trig_obj.coll.trigger:
-                if self.object.coll.trigger and self.insider.coll.trigger:
+                if self.object.coll.trigger and self.trig_obj.coll.trigger:
                     return True
                 #
                 #

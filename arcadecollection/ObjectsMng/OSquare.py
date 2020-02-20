@@ -28,20 +28,13 @@ class OSquare(Object):
 
     #Ищем все точки данного объекта в World
     def PointFind(self):
+        #Обновляем множество точек объекта
+        if self.point != set():
+            self.point.clear()
+
         for x in range(self.geom.position.x, self.geom.position.x + self.geom.size.x):
             for y in range(self.geom.position.y, self.geom.position.y + self.geom.size.y):
                 self.point.add((x, y))
-         
-                
-    #Двигаем объект в направлении:
-    def move_object(self):
-
-        #
-        self.PointFind()
-
-        #
-        if not self.coll.Collision():
-            self.geom.position += self.geom.direction
 
 
     #
